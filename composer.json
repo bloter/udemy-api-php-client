@@ -1,0 +1,13 @@
+{
+    "name": "udemy/udemy-php-apiclient",
+    "type": "library",
+    "description": "Udemy APIs Client Library for PHP",
+    "keywords": ["udemy"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.2.1"
+    },
+    "autoload": {
+        "files": ["src/Udemy/autoload.php"]
+    }
+}
