@@ -147,15 +147,15 @@ class Udemy_Service_Courses extends Udemy_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'pageSize' => array(
+                'page_size' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'rating' => array(
+                'is_text_review' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'is_text_review' => array(
+                'rating' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -402,14 +402,15 @@ class Udemy_Service_Courses_Courses extends Udemy_Collection
 
 class Udemy_Service_Courses_Reviews extends Udemy_Collection
 {
-  protected $collection_key = 'items';
+  protected $collection_key = 'results';
   protected $internal_gapi_mappings = array(
   );
-  protected $itemsType = 'Udemy_Service_Courses_Volume';
+  protected $itemsType = 'Udemy_Service_Courses_Review';
   protected $itemsDataType = 'array';
-  public $kind;
-  public $totalItems;
-
+  
+  public $count;
+  public $next;
+  public $previous;
 
   public function setItems($items)
   {
@@ -419,64 +420,56 @@ class Udemy_Service_Courses_Reviews extends Udemy_Collection
   {
     return $this->items;
   }
-  public function setKind($kind)
+  public function setCount($count)
   {
-    $this->kind = $kind;
+    $this->count = $count;
   }
-  public function getKind()
+  public function getCount()
   {
-    return $this->kind;
+    return $this->count;
   }
-  public function setTotalItems($totalItems)
+  public function setNext($next)
   {
-    $this->totalItems = $totalItems;
+    $this->next = $next;
   }
-  public function getTotalItems()
+  public function getNext()
   {
-    return $this->totalItems;
+    return $this->next;
   }
+  public function setPrevious($previous)
+  {
+    $this->previous = $previous;
+  }
+  public function getPrevious()
+  {
+    return $this->previous;
+  }
+  
 }
 
 class Udemy_Service_Courses_Review extends Udemy_Model
 {
-  /*
+  
   protected $internal_gapi_mappings = array(
   );
-  protected $accessInfoType = 'Udemy_Service_Courses_VolumeAccessInfo';
-  protected $accessInfoDataType = '';
-  public $etag;
+  
+  
+  public $_class;
   public $id;
-  public $kind;
-  protected $layerInfoType = 'Udemy_Service_Courses_VolumeLayerInfo';
-  protected $layerInfoDataType = '';
-  protected $recommendedInfoType = 'Udemy_Service_Courses_VolumeRecommendedInfo';
-  protected $recommendedInfoDataType = '';
-  protected $saleInfoType = 'Udemy_Service_Courses_VolumeSaleInfo';
-  protected $saleInfoDataType = '';
-  protected $searchInfoType = 'Udemy_Service_Courses_VolumeSearchInfo';
-  protected $searchInfoDataType = '';
-  public $selfLink;
-  protected $userInfoType = 'Udemy_Service_Courses_VolumeUserInfo';
-  protected $userInfoDataType = '';
-  protected $volumeInfoType = 'Udemy_Service_Courses_VolumeVolumeInfo';
-  protected $volumeInfoDataType = '';
-
-
-  public function setAccessInfo(Udemy_Service_Courses_VolumeAccessInfo $accessInfo)
+  public $title;
+  public $content;
+  public $rating;
+  public $created;
+  public $modified;
+  public $user;
+  
+  public function set_class($_class)
   {
-    $this->accessInfo = $accessInfo;
+    $this->_class = $_class;
   }
-  public function getAccessInfo()
+  public function get_class()
   {
-    return $this->accessInfo;
-  }
-  public function setEtag($etag)
-  {
-    $this->etag = $etag;
-  }
-  public function getEtag()
-  {
-    return $this->etag;
+    return $this->_class;
   }
   public function setId($id)
   {
@@ -486,70 +479,56 @@ class Udemy_Service_Courses_Review extends Udemy_Model
   {
     return $this->id;
   }
-  public function setKind($kind)
+  public function setTitle($title)
   {
-    $this->kind = $kind;
+    $this->title = $title;
   }
-  public function getKind()
+  public function getTitle()
   {
-    return $this->kind;
+    return $this->title;
   }
-  public function setLayerInfo(Udemy_Service_Courses_VolumeLayerInfo $layerInfo)
+  public function setContent($content)
   {
-    $this->layerInfo = $layerInfo;
+    $this->content = $content;
   }
-  public function getLayerInfo()
+  public function getContent()
   {
-    return $this->layerInfo;
+    return $this->content;
   }
-  public function setRecommendedInfo(Udemy_Service_Courses_VolumeRecommendedInfo $recommendedInfo)
+  
+  public function setRating($rating)
   {
-    $this->recommendedInfo = $recommendedInfo;
+    $this->rating = $rating;
   }
-  public function getRecommendedInfo()
+  public function getRating()
   {
-    return $this->recommendedInfo;
+    return $this->rating;
   }
-  public function setSaleInfo(Udemy_Service_Courses_VolumeSaleInfo $saleInfo)
+  
+  public function setCreated($created)
   {
-    $this->saleInfo = $saleInfo;
+    $this->created = $created;
   }
-  public function getSaleInfo()
+  public function getCreated()
   {
-    return $this->saleInfo;
+    return $this->created;
   }
-  public function setSearchInfo(Udemy_Service_Courses_VolumeSearchInfo $searchInfo)
+  
+  public function setModified($modified)
   {
-    $this->searchInfo = $searchInfo;
+    $this->modified = $modified;
   }
-  public function getSearchInfo()
+  public function getModified()
   {
-    return $this->searchInfo;
+    return $this->modified;
   }
-  public function setSelfLink($selfLink)
+  public function setUser($user)
   {
-    $this->selfLink = $selfLink;
+    $this->user = $user;
   }
-  public function getSelfLink()
+  public function getUser()
   {
-    return $this->selfLink;
+    return $this->user;
   }
-  public function setUserInfo(Udemy_Service_Courses_VolumeUserInfo $userInfo)
-  {
-    $this->userInfo = $userInfo;
-  }
-  public function getUserInfo()
-  {
-    return $this->userInfo;
-  }
-  public function setVolumeInfo(Udemy_Service_Courses_VolumeVolumeInfo $volumeInfo)
-  {
-    $this->volumeInfo = $volumeInfo;
-  }
-  public function getVolumeInfo()
-  {
-    return $this->volumeInfo;
-  }
-  */ 
 }
 
